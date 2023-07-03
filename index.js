@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
+const hostname = "0.0.0.0";
 const port = 8080;
 const data = require("./data.json");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const fakeAuthorization = "dGVzdDpzZWNyZXQ=";
 
@@ -10,8 +12,12 @@ const CODE_UNAUTHORIZED = 401;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors({
+  origin: '*',
+  methods: 'GET,POST'
+}))
 
-app.get("/list", (req, res) => {
+app.get("/movies", (req, res) => {
   res.json(data);
 });
 
@@ -29,6 +35,6 @@ app.post("/add", (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+app.listen(port, hostname,() => {
+  console.log(`listening on port ${hostname}:${port}`);
 });
