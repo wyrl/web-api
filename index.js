@@ -21,14 +21,14 @@ app.get("/movies", (req, res) => {
   res.json(data);
 });
 
-app.post("/add", (req, res) => {
+app.post("/add-movie", (req, res) => {
   const request_header = req.headers["authorization"];
 
   const body = req.body;
 
   if (request_header == fakeAuthorization) {
     data.push(body);
-    res.send("Added Successfully.");
+    res.json(body);
   } else {
     res.status(CODE_UNAUTHORIZED);
     res.send("Unauthorized");
